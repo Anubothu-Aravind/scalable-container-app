@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  app:
+    build: ./app  # The Dockerfile is located in the 'app' folder
+    ports:
+      - "5001:5000"  # Expose port 5000 inside the container to 5001 on the host
+    environment:
+      - FLASK_ENV=development
+    deploy:
+      replicas: 3  # Scale the service to 3 replicas
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+      restart_policy:
+        condition: on-failure
